@@ -4,6 +4,13 @@
     <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>disable</Nullable>
+    <Version>0.1.0</Version>
+    <Authors>Francesco Bognini</Authors>
+    <Company>Francesco Bognini</Company>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/fbognini/SberemPay.Sdk</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/fbognini/SberemPay.Sdk</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
