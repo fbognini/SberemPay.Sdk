@@ -12,6 +12,7 @@ namespace SberemPay.Sdk.Models.Payments
     {
         public string Id { get; set; }
         public string ReferenceId { get; set; }
+        public string ParentPaymentId { get; set; }
         public string CustomerId { get; set; }
         public string CustomerFirstName { get; set; }
         public string CustomerLastName { get; set; }
@@ -23,6 +24,7 @@ namespace SberemPay.Sdk.Models.Payments
         public long PaidAmount { get; set; }
         public long PaidVoucherAmount { get; set; }
         public string Status { get; set; }
+        public string Mode { get; set; }
 
         public List<PaymentLine> PaymentLines { get; set; }
         public List<PaymentDiscount> PaymentDiscounts { get; set; }
