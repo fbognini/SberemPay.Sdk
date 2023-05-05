@@ -42,6 +42,8 @@ namespace SberemPay.Sdk.Requests
         public string RedirectSuccessUrl { get; set; }
         public string RedirectErrorUrl { get; set; }
         public string S2SUrl { get; set; }
+        public PaymentMode Mode { get; set; }
+        public bool? HasWallet { get; set; }
         public Dictionary<string, string> Metadata { get; set; }
         public List<PaymentLine> PaymentLines { get; set; } = new();
         public List<PaymentDiscount> PaymentDiscounts { get; set; } = new();
