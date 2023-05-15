@@ -8,7 +8,7 @@ namespace SberemPay.Sdk.Endpoints
 {
     internal static class PaymentMethodEndpoints
     {
-        private const string Endpoint = "payment_methods";
+        private const string Endpoint = "payment-methods";
 
         public static string DeletePaymentMethod(string id) => $"v1/{Endpoint}/{id}";
     }

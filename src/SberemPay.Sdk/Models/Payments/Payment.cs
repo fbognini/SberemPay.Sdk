@@ -23,8 +23,10 @@ namespace SberemPay.Sdk.Models.Payments
         public long FinalAmount { get; set; }
         public long PaidAmount { get; set; }
         public long PaidVoucherAmount { get; set; }
-        public string Status { get; set; }
-        public int Mode { get; set; }
+        public long Amount { get; set; }
+        public bool IsSingleTransaction { get; set; }
+        public PaymentStaus Status { get; set; }
+        public PaymentMode Mode { get; set; }
         public bool HasWallet { get; set; }
 
         public List<PaymentLine> PaymentLines { get; set; }

@@ -7,7 +7,7 @@
       <img src="https://source.unsplash.com/kcA-c3f_3FE" class="card-img-top" alt="Bowl">
       <div class="card-body">
         <h5 class="card-title">Fresh bowl<span class="badge bg-secondary float-end">7 €</span></h5>
-        <form action="/init-payment" method="POST">
+            <form action="@Url.Action("InitPayment", "PayApi")" method="POST">
             <button class="btn btn-primary" type="submit" id="checkout-button">Checkout</button>
         </form>
       </div>

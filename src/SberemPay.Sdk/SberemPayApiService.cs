@@ -3,6 +3,7 @@ using fbognini.Sdk.Interfaces;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SberemPay.Sdk.Endpoints;
+using SberemPay.Sdk.Models.PaymentGateways;
 using SberemPay.Sdk.Models.PaymentMethods;
 using SberemPay.Sdk.Models.Payments;
 using SberemPay.Sdk.Requests;
@@ -28,6 +29,14 @@ namespace SberemPay.Sdk
         Task<List<PaymentMethod>> GetCustomerPaymentMethods(string id);
         Task<ApiResult> DeletePaymentMethod(string id);
 
+        #endregion
+
+        #region Payment Gateways
+        
+        Task<PaymentGatewayResponse> GetPaymentGateways();
+
+        Task<ApiResult> UpdatePaymentGateways(UpdatePaymentGatewaysRequest request);
+        
         #endregion
     }
 
@@ -91,6 +100,16 @@ namespace SberemPay.Sdk
         public async Task<ApiResult> DeletePaymentMethod(string id)
         {
             return await DeleteApiResult(PaymentMethodEndpoints.DeletePaymentMethod(id));
+        }
+
+        public async Task<PaymentGatewayResponse> GetPaymentGateways()
+        {
+            return await GetApi<PaymentGatewayResponse>(PaymentGatewayEndpoints.GetPaymentGateways());
+        }
+
+        public async Task<ApiResult> UpdatePaymentGateways(UpdatePaymentGatewaysRequest request)
+        {
+            return await PostApiResult<UpdatePaymentGatewaysRequest>(PaymentGatewayEndpoints.UpdatePaymentGateways(), request);
         }
     }
 }

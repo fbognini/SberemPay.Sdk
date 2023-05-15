@@ -10,8 +10,6 @@ namespace SberemPay.Sdk.Models.Payments
 {
     public class PaymentDiscount
     {
-        public int Id { get; set; }
-        public int PaymentId { get; set; }
         public string DiscountName { get; set; }
         public string DiscountDescription { get; set; }
         public long Amount { get; set; }

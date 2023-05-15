@@ -10,13 +10,9 @@ namespace SberemPay.Sdk.Models.Payments
 {
     public class PaymentLine
     {
-        public int Id { get; set; }
-        public int PaymentId { get; set; }
         public int Quantity { get; set; }
-        public int? PriceId { get; set; }
         public long UnitAmount { get; set; }
         public long UnitDiscountAmount { get; set; }
-        public long UnitDiscountedAmount { get; set; }
         /// <summary>
         /// cumulative discount for line. can be used if UnitDiscountAmount is zero
         /// </summary>
@@ -33,7 +29,6 @@ namespace SberemPay.Sdk.Models.Payments
         /// TotalAmount - TotalDiscountAmount - DiscountAmount
         /// </summary>
         public long FinalAmount { get; set; }
-        public int? ProductId { get; set; }
         public string ProductName { get; set; }
         public string ProductDescription { get; set; }
         public string ProductImage { get; set; }

@@ -36,18 +36,17 @@ public class PayApiController : ControllerBase
         _logger = logger;
         _sberemPayApiService = sberemPayApiService;
     }
-    
+
     [HttpPost]
     public async Task<ActionResult> InitPayment()
     {
-        
+
         var request = new CreatePaymentRequest
         {
             ReferenceId = Guid.NewGuid().ToString(),
             CustomerFirstName = "Mario",
             CustomerLastName = "Red",
             CustomerEmail = "mario.red@gmail.com",
-            CustomerCreate = true,
             PaymentLines = new List<CreatePaymentRequest.PaymentLine>()
             {
                 new CreatePaymentRequest.PaymentLine()
@@ -58,8 +57,9 @@ public class PayApiController : ControllerBase
                     ProductName = "Fresh bowl",
                     UnitAmount = 700,
                 }
-                
+
             },
+            Mode = Sdk.Models.Payments.PaymentMode.Payment,
             RedirectSuccessUrl = Url.Action("Success", "Pay", null, HttpContext.Request.Scheme),
             RedirectErrorUrl = Url.Action("Error", "Pay", null, HttpContext.Request.Scheme),
         };
@@ -71,5 +71,43 @@ public class PayApiController : ControllerBase
         }
 
         return new RedirectResult(createPaymentResult.Response.CheckoutUrl);
+    }
+
+    [HttpGet("payment-gateways")]
+    public async Task<ActionResult> GetPaymentGateways()
+    {
+        var paymentGateways = await _sberemPayApiService.GetPaymentGateways();
+
+        return Ok();
+    }
+
+    [HttpPost("payment-gateways")]
+    public async Task<ActionResult> UpdatePaymentGateways()
+    {
+        var request = new UpdatePaymentGatewaysRequest()
+        {
+            Items = new List<UpdatePaymentGatewayRequest>()
+            {
+                new UpdatePaymentGatewayRequest() { Id = "EDENRED" },
+                new UpdatePaymentGatewayRequest() { Id = "FAKEVOU" },
+                new UpdatePaymentGatewayRequest() { Id = "PAYPAL" },
+                new UpdatePaymentGatewayRequest() { Id = "PELLEGR" },
+                new UpdatePaymentGatewayRequest() { Id = "UPDAY" },
+                new UpdatePaymentGatewayRequest() {
+                    Id = "PHEY",
+                    FallbackPaymentGateway = new UpdatePaymentGatewayRequest()
+                    {
+                        Id = "ARGENTE",
+                        FallbackPaymentGateway = new UpdatePaymentGatewayRequest()
+                        {
+                            Id = "AXERVE"
+                        }
+                    }
+                },
+            }
+        };
+        var result = await _sberemPayApiService.UpdatePaymentGateways(request);
+
+        return Ok();
     }
 }

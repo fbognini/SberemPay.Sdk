@@ -16,9 +16,15 @@ namespace SberemPay.Sdk.Models.Payments
         public string ExternalId2 { get; set; }
         public string ExternalId3 { get; set; }
         public bool IsVoucher { get; set; }
+        public bool IsWallet { get; set; }
         public long Amount { get; set; }
         public long ConfirmedAmount { get; set; }
         public long RefundedAmount { get; set; }
+        public string Currency { get; set; } = string.Empty;
+        public string ProductType { get; set; } = string.Empty;
+        public string Brand { get; set; } = string.Empty;
+        public string Pan { get; set; } = string.Empty;
+        public string PanExpiration { get; set; }
         public string Status { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using SberemPay.Sdk.Models.Payments;
+using System.Text.Json.Serialization;
 
 namespace SberemPay.Sdk.Requests
 {
@@ -32,13 +33,14 @@ namespace SberemPay.Sdk.Requests
         }
 
         public string ReferenceId { get; set; }
+        public int? Timeout { get; set; }
         public string CustomerId { get; set; }
-        public bool? CustomerCreate { get; set; }
-        public bool? CustomerUpdate { get; set; }
         public string CustomerFirstName { get; set; }
         public string CustomerLastName { get; set; }
         public string CustomerEmail { get; set; }
-        public string PaymentMethodId { get; set; }
+        public bool IsSingleTransaction { get; set; }
+        public string SelectedPaymentMethod { get; set; }
+        public List<string> PaymentMethods { get; set; } = new();
         public string RedirectSuccessUrl { get; set; }
         public string RedirectErrorUrl { get; set; }
         public string S2SUrl { get; set; }

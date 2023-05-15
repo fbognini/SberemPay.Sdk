@@ -10,6 +10,6 @@ namespace SberemPay.Sdk.Endpoints
     {
         private const string Endpoint = "customers";
 
-        public static string GetPaymentMethods(string id) => $"v1/{Endpoint}/{id}/payment_methods";
+        public static string GetPaymentMethods(string id) => $"v1/{Endpoint}/{id}/payment-methods";
     }
 }
