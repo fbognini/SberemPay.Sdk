@@ -39,8 +39,8 @@ namespace SberemPay.Sdk.Requests
         public string CustomerLastName { get; set; }
         public string CustomerEmail { get; set; }
         public bool IsSingleTransaction { get; set; }
-        public string SelectedPaymentMethod { get; set; }
-        public List<string> PaymentMethods { get; set; } = new();
+        public string SelectedPaymentGateway { get; set; }
+        public List<string> PaymentGateways { get; set; } = new();
         public string RedirectSuccessUrl { get; set; }
         public string RedirectErrorUrl { get; set; }
         public string S2SUrl { get; set; }

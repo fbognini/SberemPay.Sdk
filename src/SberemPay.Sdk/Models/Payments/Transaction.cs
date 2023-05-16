@@ -11,7 +11,7 @@ namespace SberemPay.Sdk.Models.Payments
     public class Transaction
     {
         public Guid Id { get; set; }
-        public string PaymentMethodId { get; set; }
+        public string PaymentGatewayId { get; set; }
         public string ExternalId1 { get; set; }
         public string ExternalId2 { get; set; }
         public string ExternalId3 { get; set; }
