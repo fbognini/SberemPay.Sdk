@@ -72,42 +72,4 @@ public class PayApiController : ControllerBase
 
         return new RedirectResult(createPaymentResult.Response.CheckoutUrl);
     }
-
-    [HttpGet("payment-gateways")]
-    public async Task<ActionResult> GetPaymentGateways()
-    {
-        var paymentGateways = await _sberemPayApiService.GetPaymentGateways();
-
-        return Ok();
-    }
-
-    [HttpPost("payment-gateways")]
-    public async Task<ActionResult> UpdatePaymentGateways()
-    {
-        var request = new UpdatePaymentGatewaysRequest()
-        {
-            Items = new List<UpdatePaymentGatewayRequest>()
-            {
-                new UpdatePaymentGatewayRequest() { Id = "EDENRED" },
-                new UpdatePaymentGatewayRequest() { Id = "FAKEVOU" },
-                new UpdatePaymentGatewayRequest() { Id = "PAYPAL" },
-                new UpdatePaymentGatewayRequest() { Id = "PELLEGR" },
-                new UpdatePaymentGatewayRequest() { Id = "UPDAY" },
-                new UpdatePaymentGatewayRequest() {
-                    Id = "PHEY",
-                    FallbackPaymentGateway = new UpdatePaymentGatewayRequest()
-                    {
-                        Id = "ARGENTE",
-                        FallbackPaymentGateway = new UpdatePaymentGatewayRequest()
-                        {
-                            Id = "AXERVE"
-                        }
-                    }
-                },
-            }
-        };
-        var result = await _sberemPayApiService.UpdatePaymentGateways(request);
-
-        return Ok();
-    }
 }

@@ -2,7 +2,7 @@
 {
     public class PaymentGateway
     {
-        public string Id { get; set; }
+        public string PaymentGatewayId { get; set; }
         public string Name { get; set; }
         public string Image { get; set; }
 

@@ -33,9 +33,9 @@ namespace SberemPay.Sdk
 
         #region Payment Gateways
         
-        Task<PaymentGatewayResponse> GetPaymentGateways();
+        Task<PaymentGatewayResponse> GetMerchantPaymentGateways();
 
-        Task<ApiResult> UpdatePaymentGateways(UpdatePaymentGatewaysRequest request);
+        Task<ApiResult> UpdateMerchantPaymentGateways(UpdatePaymentGatewaysRequest request);
         
         #endregion
     }
@@ -102,14 +102,14 @@ namespace SberemPay.Sdk
             return await DeleteApiResult(PaymentMethodEndpoints.DeletePaymentMethod(id));
         }
 
-        public async Task<PaymentGatewayResponse> GetPaymentGateways()
+        public async Task<PaymentGatewayResponse> GetMerchantPaymentGateways()
         {
-            return await GetApi<PaymentGatewayResponse>(PaymentGatewayEndpoints.GetPaymentGateways());
+            return await GetApi<PaymentGatewayResponse>(MerchantEndpoints.GetMerchantPaymentGateways());
         }
 
-        public async Task<ApiResult> UpdatePaymentGateways(UpdatePaymentGatewaysRequest request)
+        public async Task<ApiResult> UpdateMerchantPaymentGateways(UpdatePaymentGatewaysRequest request)
         {
-            return await PostApiResult<UpdatePaymentGatewaysRequest>(PaymentGatewayEndpoints.UpdatePaymentGateways(), request);
+            return await PostApiResult<UpdatePaymentGatewaysRequest>(MerchantEndpoints.UpdateMerchantPaymentGateways(), request);
         }
     }
 }
