@@ -3,8 +3,8 @@
   <PropertyGroup>
     <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>disable</Nullable>
-    <Version>0.4.2</Version>
+    <Nullable>enable</Nullable>
+    <Version>0.6.0</Version>
     <Authors>Francesco Bognini</Authors>
     <Company>Francesco Bognini</Company>
     <PackageReadmeFile>README.md</PackageReadmeFile>
@@ -14,8 +14,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-
-    <PackageReference Include="fbognini.Sdk" Version="1.1.0" />
+    <PackageReference Include="fbognini.Sdk" Version="2.2.1" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net7.0' ">

@@ -1,5 +1,6 @@
 ﻿using fbognini.Sdk;
 using fbognini.Sdk.Interfaces;
+using fbognini.Sdk.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SberemPay.Sdk.Endpoints;
@@ -16,18 +17,17 @@ namespace SberemPay.Sdk
     public interface ISberemPayApiService
     {
         #region Payments
-        Task<ApiResult<Payment>> ConfirmPayment(string id);
-        Task<ApiResult<Payment>> CreatePayment(CreatePaymentRequest request);
-        Task<ApiResult<Payment>> GetPayment(string id);
-        Task<ApiResult<PaginationResponse<Payment>, Payment>> GetPayments(int pageNumber, int pageSize);
-        Task<ApiResult<Payment>> RefundPayment(string id);
+        Task<Payment> CreatePayment(CreatePaymentRequest request);
+        Task<Payment> ConfirmPayment(string id);
+        Task<Payment> GetPayment(string id);
+        Task<Payment> RefundPayment(string id);
 
         #endregion
 
         #region Customer
 
         Task<List<PaymentMethod>> GetCustomerPaymentMethods(string id);
-        Task<ApiResult> DeletePaymentMethod(string id);
+        Task DeletePaymentMethod(string id);
 
         #endregion
 
@@ -35,7 +35,7 @@ namespace SberemPay.Sdk
         
         Task<PaymentGatewayResponse> GetMerchantPaymentGateways();
 
-        Task<ApiResult> UpdateMerchantPaymentGateways(UpdatePaymentGatewaysRequest request);
+        Task UpdateMerchantPaymentGateways(UpdatePaymentGatewaysRequest request);
         
         #endregion
     }
@@ -67,29 +67,24 @@ namespace SberemPay.Sdk
             this.settings = settings;
         }
 
-        public async Task<ApiResult<PaginationResponse<Payment>, Payment>> GetPayments(int pageNumber, int pageSize)
+        public async Task<Payment> GetPayment(string id)
         {
-            return await GetApi<ApiResult<PaginationResponse<Payment>, Payment>>(PaymentEndpoints.GetPayments(pageNumber, pageSize));
+            return await GetApi<Payment>(PaymentEndpoints.GetPayment(id));
         }
 
-        public async Task<ApiResult<Payment>> GetPayment(string id)
+        public async Task<Payment> CreatePayment(CreatePaymentRequest request)
         {
-            return await GetApiResult<Payment>(PaymentEndpoints.GetPayment(id));
+            return await PostApi<Payment, CreatePaymentRequest>(PaymentEndpoints.CreatePayment(), request);
         }
 
-        public async Task<ApiResult<Payment>> CreatePayment(CreatePaymentRequest request)
+        public async Task<Payment> ConfirmPayment(string id)
         {
-            return await PostApiResult<Payment, CreatePaymentRequest>(PaymentEndpoints.CreatePayment(), request);
+            return await PostApi<Payment>(PaymentEndpoints.ConfirmPayment(id));
         }
 
-        public async Task<ApiResult<Payment>> ConfirmPayment(string id)
+        public async Task<Payment> RefundPayment(string id)
         {
-            return await PostApiResult<Payment>(PaymentEndpoints.ConfirmPayment(id));
-        }
-
-        public async Task<ApiResult<Payment>> RefundPayment(string id)
-        {
-            return await PostApiResult<Payment>(PaymentEndpoints.RefundPayment(id));
+            return await PostApi<Payment>(PaymentEndpoints.RefundPayment(id));
         }
 
         public async Task<List<PaymentMethod>> GetCustomerPaymentMethods(string id)
@@ -97,9 +92,9 @@ namespace SberemPay.Sdk
             return await GetApi<List<PaymentMethod>>(CustomerEndpoints.GetPaymentMethods(id));
         }
 
-        public async Task<ApiResult> DeletePaymentMethod(string id)
+        public async Task DeletePaymentMethod(string id)
         {
-            return await DeleteApiResult(PaymentMethodEndpoints.DeletePaymentMethod(id));
+            await DeleteApi(PaymentMethodEndpoints.DeletePaymentMethod(id));
         }
 
         public async Task<PaymentGatewayResponse> GetMerchantPaymentGateways()
@@ -107,9 +102,9 @@ namespace SberemPay.Sdk
             return await GetApi<PaymentGatewayResponse>(MerchantEndpoints.GetMerchantPaymentGateways());
         }
 
-        public async Task<ApiResult> UpdateMerchantPaymentGateways(UpdatePaymentGatewaysRequest request)
+        public async Task UpdateMerchantPaymentGateways(UpdatePaymentGatewaysRequest request)
         {
-            return await PostApiResult<UpdatePaymentGatewaysRequest>(MerchantEndpoints.UpdateMerchantPaymentGateways(), request);
+            await PostApi<UpdatePaymentGatewaysRequest>(MerchantEndpoints.UpdateMerchantPaymentGateways(), request);
         }
     }
 }

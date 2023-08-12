@@ -1,3 +1,4 @@
+using fbognini.Sdk.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using SberemPay.Sdk;
 using SberemPay.Sdk.Requests;
@@ -63,13 +64,15 @@ public class PayApiController : ControllerBase
             RedirectSuccessUrl = Url.Action("Success", "Pay", null, HttpContext.Request.Scheme),
             RedirectErrorUrl = Url.Action("Error", "Pay", null, HttpContext.Request.Scheme),
         };
-        var createPaymentResult = await _sberemPayApiService.CreatePayment(request);
 
-        if (!createPaymentResult.IsSuccess)
+        try
         {
-            return BadRequest(createPaymentResult.Message);
+            var payment = await _sberemPayApiService.CreatePayment(request);
+            return new RedirectResult(payment.CheckoutUrl);
         }
-
-        return new RedirectResult(createPaymentResult.Response.CheckoutUrl);
+        catch (ApiException ex)
+        {
+            return BadRequest(ex.Response);
+        }
     }
 }

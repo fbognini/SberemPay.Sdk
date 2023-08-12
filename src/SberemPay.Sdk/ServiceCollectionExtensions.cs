@@ -1,4 +1,6 @@
-﻿using fbognini.Sdk.Interfaces;
+﻿using fbognini.Sdk.Extensions;
+using fbognini.Sdk.Handlers;
+using fbognini.Sdk.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -11,7 +13,8 @@ namespace SberemPay.Sdk
         {
             services.Configure<InternalSberemPayApiSettings>(configuration.GetSection(nameof(SberemPayApiSettings)));
 
-            services.AddHttpClient<ISberemPayApiService, SberemPayApiService>();
+            services.AddHttpClient<ISberemPayApiService, SberemPayApiService>()
+                .ThrowApiExceptionIfNotSuccess();
 
             return services;
         }

@@ -23,7 +23,7 @@ namespace SberemPay.Sdk
     {
         private readonly Dictionary<SberemPayApiEnvironment, string> Urls = new()
         {
-            [SberemPayApiEnvironment.STG] = "https://api-stg.sberempay.com/",
+            [SberemPayApiEnvironment.STG] = "https://api-stg.voucherly.it/",
             [SberemPayApiEnvironment.PRD] = "https://api.sberempay.com/",
         };
 
