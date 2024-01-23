@@ -32,22 +32,25 @@ namespace SberemPay.Sdk.Requests
             public int? Index { get; set; }
         }
 
-        public string ReferenceId { get; set; }
+        public string? ReferenceId { get; set; }
         public int? Timeout { get; set; }
-        public string CustomerId { get; set; }
-        public string CustomerFirstName { get; set; }
-        public string CustomerLastName { get; set; }
-        public string CustomerEmail { get; set; }
-        public bool IsSingleTransaction { get; set; }
-        public string SelectedPaymentGateway { get; set; }
-        public List<string> PaymentGateways { get; set; } = new();
-        public string RedirectSuccessUrl { get; set; }
-        public string RedirectErrorUrl { get; set; }
-        public string S2SUrl { get; set; }
         public PaymentMode Mode { get; set; }
-        public bool? HasWallet { get; set; }
-        public Dictionary<string, string> Metadata { get; set; }
-        public List<PaymentLine> PaymentLines { get; set; } = new();
-        public List<PaymentDiscount> PaymentDiscounts { get; set; } = new();
+        public string? CustomerId { get; set; }
+        public string CustomerFirstName { get; set; } = default!;
+        public string CustomerLastName { get; set; } = default!;
+        public string CustomerEmail { get; set; } = default!;
+        public bool IsPartialPayment { get; set; }
+        public bool? IsAutoConfirm { get; set; }
+        public string? SelectedPaymentGateway { get; set; }
+        public List<string> PaymentGateways { get; set; } = new();
+        public string RedirectSuccessUrl { get; set; } = string.Empty;
+        public string RedirectErrorUrl { get; set; } = string.Empty;
+        public string? S2SUrl { get; set; }
+        public string? Language { get; set; }
+        public string? Country { get; set; }
+        public string? ShippingAddress { get; set; }
+        public Dictionary<string, string>? Metadata { get; set; }
+        public List<PaymentLine> Lines { get; set; } = new();
+        public List<PaymentDiscount> Discounts { get; set; } = new();
     }
 }

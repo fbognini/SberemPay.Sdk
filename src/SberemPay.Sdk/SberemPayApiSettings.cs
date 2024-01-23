@@ -15,7 +15,6 @@ namespace SberemPay.Sdk
     public class SberemPayApiSettings
     {
         public SberemPayApiEnvironment Environment { get; set; }
-        public string Override { get; set; }
         public string ApiKey { get; set; }
     }
 
@@ -24,21 +23,12 @@ namespace SberemPay.Sdk
         private readonly Dictionary<SberemPayApiEnvironment, string> Urls = new()
         {
             [SberemPayApiEnvironment.STG] = "https://api-stg.voucherly.it/",
-            [SberemPayApiEnvironment.PRD] = "https://api.sberempay.com/",
+            [SberemPayApiEnvironment.PRD] = "https://api.voucherly.it/",
         };
 
         public SberemPayApiEnvironment? Environment { get; set; }
-        public string Override { get; set; }
         public string ApiKey { get; set; }
 
-        internal string GetUrl()
-        {
-            if (!string.IsNullOrWhiteSpace(Override))
-            {
-                return Override;
-            }
-
-            return Urls[Environment ?? SberemPayApiEnvironment.PRD];
-        }
+        internal string GetUrl() => Urls[Environment ?? SberemPayApiEnvironment.PRD];
     }
 }

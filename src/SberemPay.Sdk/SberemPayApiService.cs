@@ -4,7 +4,6 @@ using fbognini.Sdk.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SberemPay.Sdk.Endpoints;
-using SberemPay.Sdk.Models.PaymentGateways;
 using SberemPay.Sdk.Models.PaymentMethods;
 using SberemPay.Sdk.Models.Payments;
 using SberemPay.Sdk.Requests;
@@ -19,7 +18,7 @@ namespace SberemPay.Sdk
         #region Payments
         Task<Payment> CreatePayment(CreatePaymentRequest request);
         Task<Payment> ConfirmPayment(string id);
-        Task<Payment> GetPayment(string id);
+        Task<Payment> GetPayment(string id, GetPaymentRequest request);
         Task<Payment> RefundPayment(string id);
 
         #endregion
@@ -27,16 +26,8 @@ namespace SberemPay.Sdk
         #region Customer
 
         Task<List<PaymentMethod>> GetCustomerPaymentMethods(string id);
-        Task DeletePaymentMethod(string id);
+        Task DeletePaymentMethod(string customerId, string id);
 
-        #endregion
-
-        #region Payment Gateways
-        
-        Task<PaymentGatewayResponse> GetMerchantPaymentGateways();
-
-        Task UpdateMerchantPaymentGateways(UpdatePaymentGatewaysRequest request);
-        
         #endregion
     }
 
@@ -67,9 +58,15 @@ namespace SberemPay.Sdk
             this.settings = settings;
         }
 
-        public async Task<Payment> GetPayment(string id)
+        public async Task<Payment> GetPayment(string id, GetPaymentRequest request)
         {
-            return await GetApi<Payment>(PaymentEndpoints.GetPayment(id));
+            var options = new RequestOptions();
+            if (request.VoucherlyWaitTime.HasValue)
+            {
+                options.Headers.Add("Voucherly-Wait-Time", request.VoucherlyWaitTime.Value.ToString());
+            }
+
+            return await GetApi<Payment>(PaymentEndpoints.GetPayment(id, request?.Includes ?? Enumerable.Empty<PaymentIncludes>()));
         }
 
         public async Task<Payment> CreatePayment(CreatePaymentRequest request)
@@ -92,19 +89,9 @@ namespace SberemPay.Sdk
             return await GetApi<List<PaymentMethod>>(CustomerEndpoints.GetPaymentMethods(id));
         }
 
-        public async Task DeletePaymentMethod(string id)
+        public async Task DeletePaymentMethod(string customerId, string id)
         {
-            await DeleteApi(PaymentMethodEndpoints.DeletePaymentMethod(id));
-        }
-
-        public async Task<PaymentGatewayResponse> GetMerchantPaymentGateways()
-        {
-            return await GetApi<PaymentGatewayResponse>(MerchantEndpoints.GetMerchantPaymentGateways());
-        }
-
-        public async Task UpdateMerchantPaymentGateways(UpdatePaymentGatewaysRequest request)
-        {
-            await PostApi<UpdatePaymentGatewaysRequest>(MerchantEndpoints.UpdateMerchantPaymentGateways(), request);
+            await DeleteApi(CustomerEndpoints.DeletePaymentMethod(customerId, id));
         }
     }
 }

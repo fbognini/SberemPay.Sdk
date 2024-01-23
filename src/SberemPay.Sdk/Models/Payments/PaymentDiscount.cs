@@ -13,7 +13,7 @@ namespace SberemPay.Sdk.Models.Payments
         public string DiscountName { get; set; }
         public string DiscountDescription { get; set; }
         public long Amount { get; set; }
-        public int? Type { get; set; }
+        public string? Type { get; set; }
         public long? Value { get; set; }
         public int? Index { get; set; }
     }

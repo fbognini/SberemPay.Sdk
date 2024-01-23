@@ -11,5 +11,7 @@ namespace SberemPay.Sdk.Endpoints
         private const string Endpoint = "customers";
 
         public static string GetPaymentMethods(string id) => $"v1/{Endpoint}/{id}/payment-methods";
+
+        public static string DeletePaymentMethod(string customerId, string id) => $"v1/{Endpoint}/{customerId}/payment-methods/{id}";
     }
 }

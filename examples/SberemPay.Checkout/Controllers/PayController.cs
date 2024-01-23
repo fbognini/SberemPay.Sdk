@@ -48,7 +48,7 @@ public class PayApiController : ControllerBase
             CustomerFirstName = "Mario",
             CustomerLastName = "Red",
             CustomerEmail = "mario.red@gmail.com",
-            PaymentLines = new List<CreatePaymentRequest.PaymentLine>()
+            Lines = new List<CreatePaymentRequest.PaymentLine>()
             {
                 new CreatePaymentRequest.PaymentLine()
                 {

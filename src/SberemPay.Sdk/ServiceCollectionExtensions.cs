@@ -14,7 +14,8 @@ namespace SberemPay.Sdk
             services.Configure<InternalSberemPayApiSettings>(configuration.GetSection(nameof(SberemPayApiSettings)));
 
             services.AddHttpClient<ISberemPayApiService, SberemPayApiService>()
-                .ThrowApiExceptionIfNotSuccess();
+                .ThrowApiExceptionIfNotSuccess()
+                .AddLogging();
 
             return services;
         }
