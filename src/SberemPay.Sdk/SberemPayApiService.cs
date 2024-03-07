@@ -49,11 +49,12 @@ namespace SberemPay.Sdk
         private void ChangeSettings(InternalSberemPayApiSettings settings)
         {
             if (settings is null)
+            {
                 return;
+            }
 
-            base.client.BaseAddress = new Uri(settings.GetUrl());
-
-            client.DefaultRequestHeaders.Add("X-API-Key", settings.ApiKey);
+            client.BaseAddress = new Uri("https://api.voucherly.it/");
+            client.DefaultRequestHeaders.Add("Voucherly-API-Key", settings.ApiKey);
 
             this.settings = settings;
         }

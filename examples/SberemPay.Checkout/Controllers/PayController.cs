@@ -8,38 +8,16 @@ namespace SberemPay.Checkout.Controllers;
 public class PayController : Controller
 {
     private readonly ILogger<PayController> _logger;
-
-    public PayController(ILogger<PayController> logger)
-    {
-        _logger = logger;
-    }
-
-    public IActionResult Success()
-    {
-        return View();
-    }
-
-	public IActionResult Error()
-    {
-        return View();
-    }
-}
-
-[ApiController]
-[Route("init-payment")]
-public class PayApiController : ControllerBase
-{
-    private readonly ILogger<PayApiController> _logger;
     private readonly ISberemPayApiService _sberemPayApiService;
 
-    public PayApiController(ILogger<PayApiController> logger, ISberemPayApiService sberemPayApiService)
+    public PayController(ILogger<PayController> logger, ISberemPayApiService sberemPayApiService)
     {
         _logger = logger;
         _sberemPayApiService = sberemPayApiService;
     }
 
     [HttpPost]
-    public async Task<ActionResult> InitPayment()
+    public async Task<ActionResult> Init()
     {
 
         var request = new CreatePaymentRequest
@@ -61,18 +39,28 @@ public class PayApiController : ControllerBase
 
             },
             Mode = Sdk.Models.Payments.PaymentMode.Payment,
-            RedirectSuccessUrl = Url.Action("Success", "Pay", null, HttpContext.Request.Scheme),
-            RedirectErrorUrl = Url.Action("Error", "Pay", null, HttpContext.Request.Scheme),
+            RedirectSuccessUrl = Url.Action("Success", "Pay", null, HttpContext.Request.Scheme)!,
+            RedirectErrorUrl = Url.Action("Error", "Pay", null, HttpContext.Request.Scheme)!,
         };
 
         try
         {
             var payment = await _sberemPayApiService.CreatePayment(request);
-            return new RedirectResult(payment.CheckoutUrl);
+            return new RedirectResult(payment.CheckoutUrl!);
         }
         catch (ApiException ex)
         {
             return BadRequest(ex.Response);
         }
+    }
+
+    public IActionResult Success()
+    {
+        return View();
+    }
+
+	public IActionResult Error()
+    {
+        return View();
     }
 }
